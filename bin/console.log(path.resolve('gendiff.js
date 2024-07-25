@@ -1,0 +1,1 @@
+console.log(path.resolve([gendiff.js]))
