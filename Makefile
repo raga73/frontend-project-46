@@ -2,7 +2,7 @@ install: deps-install
 	npx simple-git-hooks
 
 run:
-	bin/nodejs-package.js 10
+	package.json
 
 deps-install:
 	npm ci --legacy-peer-deps
