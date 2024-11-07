@@ -20,5 +20,5 @@ export default (filepath1, filepath2) => {
     return null;
   });
   const stringWithFilesDifferences = filesDifferences.join('\n');
-  return stringWithFilesDifferences;
+  return s`{\n${stringWithFilesDifferences}\n}`;
 };
