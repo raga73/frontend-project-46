@@ -1,5 +1,4 @@
 install: deps-install
-	npx simple-git-hooks
 
 run:
 	package.json
