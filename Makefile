@@ -1,39 +1,25 @@
-publish:
-	npm publish --dry-run
-
-.DEFAULT_GOAL := build-run
-
-setup:
-	./gradlew wrapper --gradle-version 8.5
-
-clean:
-	./gradlew clean
-
-build:
-	./gradlew clean build
-
-install:
-	./gradlew clean install
-
-run-dist:
-	./build/install/java-package/bin/java-package
+install: deps-install
+	npx simple-git-hooks
 
 run:
-	./gradlew run
+	bin/nodejs-package.js 10
+
+deps-install:
+	npm ci --legacy-peer-deps
+
+deps-update:
+	npx ncu -u
 
 test:
-	./gradlew test
+	npm test
 
-report:
-	./gradlew jacocoTestReport
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
 
 lint:
-	./gradlew checkstyleMain
+	npx eslint .
 
-check-deps:
-	./gradlew dependencyUpdates -Drevision=release
+publish:
+	npm publish --dry-publish
 
-
-build-run: build run
-
-.PHONY: build
+.PHONY: test
