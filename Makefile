@@ -1,24 +1,6 @@
-install: deps-install
-
-run:
-	package.json
-
-deps-install:
-	npm ci --legacy-peer-deps
-
-deps-update:
-	npx ncu -u
-
-test:
-	npm test
-
-test-coverage:
-	npm test -- --coverage --coverageProvider=v8
-
+install:
+	npm ci
 lint:
-	npx eslint .
-
+	npx eslint . --fix
 publish:
-	npm publish --dry-publish
-
-.PHONY: test
+	npm publish --dry-run
