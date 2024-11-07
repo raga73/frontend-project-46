@@ -1,9 +1,5 @@
-install:
-	npm ci
 publish:
 	npm publish --dry-run
-lint:
-	npx eslint . --fix
 
 .DEFAULT_GOAL := build-run
 
