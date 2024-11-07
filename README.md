@@ -3,3 +3,6 @@
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a9aacb2892dfc3a5ec8/maintainability)](https://codeclimate.com/github/raga73/frontend-project-46/maintainability)
+
+
+<a href="https://codeclimate.com/github/raga73/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/2a9aacb2892dfc3a5ec8/test_coverage" /></a>
