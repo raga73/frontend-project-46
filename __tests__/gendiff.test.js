@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { expect, test } from '@jest/globals';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import path from 'node:path';
 import genDiff from '../src/gendiff.js';
 
@@ -25,8 +25,6 @@ test('yaml plain gendiff check', () => {
     const file3 = getFixturePath('file3.yml');
     const file4 = getFixturePath('file4.yaml');
     const received = genDiff(file3, file4);
-    const expected = `{\n${readFile('file3_file4_differences.txt', 'utf8')}\n}`;
-    console.log(received)
-    console.log(expected)
+    const expected = readFile('file3_file4_differences.txt');
     expect(received).toEqual(expected);
 });

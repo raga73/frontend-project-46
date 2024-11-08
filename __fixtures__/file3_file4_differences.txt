@@ -1,7 +1,8 @@
+{
    age: 36
    name: Anton
    sex: M
  + status: single
  - surname: Savin
  + surname: Nivas
-
+}
