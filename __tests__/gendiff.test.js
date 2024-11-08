@@ -17,7 +17,5 @@ test('gendiff check', () => {
 
   const received = genDiff(file1, file2);
   const expected = readFile('file1_file2_differences.txt');
-console.log(received);
-console.log(expected)
   expect(received).toEqual(expected);
 });
