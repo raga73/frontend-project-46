@@ -28,5 +28,5 @@ test('yaml plain gendiff check', () => {
     const expected = readFile('file3_file4_differences.txt');
     console.log(received)
     console.log(expected)
-    expect(received).toEqual(received);
+    expect(received).toEqual(expected);
 });
