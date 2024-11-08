@@ -1,3 +1,5 @@
-timeout: 20
-verbose:	true
-host: "hexlet.io"
+name: Anton
+surname: Nivas
+sex: M
+age: 36
+status: single
