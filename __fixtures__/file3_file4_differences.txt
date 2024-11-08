@@ -5,6 +5,4 @@
  + status: single
  - surname: Savin
  + surname: Nivas
-
-}
-
+ }
