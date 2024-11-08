@@ -25,7 +25,7 @@ test('yaml plain gendiff check', () => {
     const file3 = getFixturePath('file3.yml');
     const file4 = getFixturePath('file4.yaml');
     const received = genDiff(file3, file4);
-    const expected = readFile('file3_file4_differences.txt').trimEnd();
+    const expected = readFile('file3_file4_differences.txt');
     console.log(received)
     console.log(expected)
     expect(received).toEqual(expected);
