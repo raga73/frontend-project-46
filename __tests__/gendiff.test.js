@@ -22,10 +22,10 @@ test('json plain gendiff check', () => {
 })
 
 test('yaml plain gendiff check', () => {
-    const file3 = getFixturePath('file3.yaml');
-    const file4 = getFixturePath('file4.yml');
+    const file3 = getFixturePath('file3.yml');
+    const file4 = getFixturePath('file4.yaml');
   
     const received = genDiff(file3, file4);
-    const expected = readFile('file1_file2_differences.txt');
+    const expected = readFile('file3_file4_differences.txt');
     expect(received).toEqual(expected);
 });
