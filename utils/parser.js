@@ -10,5 +10,5 @@ export default (filePath) => {
   if (fileExtension === '.yml' || fileExtension === '.yaml') {
     return yaml.load(fs.readFileSync(path.resolve(filePath)));
     }
-    throw new Error('Wrong file extension!');
+    throw new Error(`Wrong file extension! ${fileExtension}`);
 };
