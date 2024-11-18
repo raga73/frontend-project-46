@@ -23,7 +23,7 @@ const plainFormatter = (obj) => {
             console.log(ancestor)
           return `Property '${ancestor}.${key}' was added with value: ${format(value.children)}\n`;
         case 'updated':
-          return `Property '${ancestor + key}.${key}' was updated. From ${format(value.children.old)} to ${format(value.children.new)}\n`;
+          return `Property '${ancestor}.${key}' was updated. From ${format(value.children.old)} to ${format(value.children.new)}\n`;
         case 'diff':
           return `${iter(value.children,)}`;
         }
@@ -43,9 +43,7 @@ const plainFormatter = (obj) => {
           acc += `Property '${key}' was removed\n`;
             return acc;
         case 'added':
-          acc += `Property '${key}' was added with value: ${(_.isObject(value.children))
-            ? `[complex value]`
-            : value.children}\n`;
+          acc += `Property '${key}' was added with value: ${format(value.children)}\n`;
             return acc;
       }
     }, '');
