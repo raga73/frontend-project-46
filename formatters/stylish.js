@@ -22,11 +22,14 @@ const stylishFormatter = (obj,replacer = ' ', spacesCount = 4) => {
             acc += `${currentInd}${key}: ${iter(value.children, depth + 1)}\n`;
             return acc;
           case 'updated':
-            acc += `${bracketIndShifted}- ${key}: ${iter(value.childrenOld, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(value.childrenNew, depth + 1)}\n`;
+            acc += `${bracketIndShifted}- ${key}: ${iter(value.children.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(value.children.new, depth + 1)}\n`;
             return acc;
-            }
-        acc += `${currentInd}${key}: ${iter(value, depth + 1)}\n`;
-        return acc;
+          case 'diff':  
+            acc += `${currentInd}${key}: ${iter(value.children, depth + 1)}\n`;
+          return acc;
+          }
+          acc += `${currentInd}${key}: ${iter(value, depth + 1)}\n`;
+          return acc
     }, '');
     return `{\n${str}${bracketInd}}`;
     }

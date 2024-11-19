@@ -18,20 +18,19 @@ const plainFormatter = (obj) => {
       .map(([key, value]) => {  
         switch (value.mark) {
         case 'removed':
-          return `Property '${ancestor}.${key}' was removed\n`;
+          return `Property '${key}' was removed\n`;
         case 'added':
-            console.log(ancestor)
-          return `Property '${ancestor}.${key}' was added with value: ${format(value.children)}\n`;
+          return `Property '${key}' was added with value: ${format(value.children)}\n`;
         case 'updated':
-          return `Property '${ancestor}.${key}' was updated. From ${format(value.children.old)} to ${format(value.children.new)}\n`;
+          return `Property '${key}' was updated. From ${format(value.children.old)} to ${format(value.children.new)}\n`;
         case 'diff':
-          return `${iter(value.children,)}`;
+          return `${iter(value.children)}`;
         }
       });
       return line.join('');
     };
 
-  let ancestor = '';
+ /* let ancestor = '';
   const str = Object
     .entries(obj)
     .reduce((acc, [key, value]) => {
@@ -47,7 +46,8 @@ const plainFormatter = (obj) => {
             return acc;
       }
     }, '');
-    return str;
+    return str;*/
+    return iter(obj)
 };
 
 export default plainFormatter;

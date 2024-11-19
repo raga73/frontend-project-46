@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 const genDiff = (file1, file2) => {
   const commonKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
-  
   const filesDifferences = commonKeys.reduce((acc, key) => {
     if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
       if (_.isObject(file1[key]) && _.isObject(file2[key])) {
@@ -11,7 +10,7 @@ const genDiff = (file1, file2) => {
           mark: 'diff',
         };
         return acc;
-      }
+      } else {
         if (file1[key] === file2[key]) {
           acc[key] = {
             children: file1[key],
@@ -30,6 +29,7 @@ const genDiff = (file1, file2) => {
               return acc;
             }  
           }
+        }
       if (Object.hasOwn(file1, key) && !Object.hasOwn(file2, key)) {
         acc[key] = {
           children: file1[key],
