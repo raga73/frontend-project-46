@@ -16,14 +16,19 @@ export default (obj,replacer = ' ', spacesCount = 4) => {
             acc = acc + `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
             return acc;
           case 'added':
-            return acc += `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            acc = acc + `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            return acc;
           case 'unchanged':
           case 'changed': 
-            return acc += `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            acc = acc + `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            return acc;
           case 'updated':
-            return acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
+            acc = acc + `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
+            return acc;
+            default:
+            acc = acc + `${currentInd}${key}: ${iter(keyValue, depth + 1)}\n`;
+            return acc;
           }
-          return acc += `${currentInd}${key}: ${iter(keyValue, depth + 1)}\n`;
     }, '');
     return `{\n${str}${bracketInd}}`;
     }
