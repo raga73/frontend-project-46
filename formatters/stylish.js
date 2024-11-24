@@ -13,7 +13,8 @@ export default (obj,replacer = ' ', spacesCount = 4) => {
       .reduce((acc, [key, keyValue]) => {
         switch (keyValue.mark) {
           case 'removed':
-            return acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            acc = acc + `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            return acc;
           case 'added':
             return acc += `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
           case 'unchanged':

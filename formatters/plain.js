@@ -26,9 +26,8 @@ export default (obj) => {
           return `Property '${currPath}${key}' was updated. From ${format(keyValue.value.old)} to ${format(keyValue.value.new)}\n`;
         case 'changed':
           return `${iter(keyValue.value, currPath + key)}`;
-          default:
-            return;
         }
+        return;
       });
       return line.join('');
     };
