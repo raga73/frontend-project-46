@@ -51,6 +51,7 @@ export default (filePath1, filePath2, formatType) => {
         };
         return acc;
       }
+      return acc;
     }, {});
   return filesDifferences;
   };
