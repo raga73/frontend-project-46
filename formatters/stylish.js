@@ -20,7 +20,7 @@ export default (obj,replacer = ' ', spacesCount = 4) => {
             return acc;
           case 'unchanged':
           case 'changed': 
-            acc = acc + `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
+            acc = `${acc}` + `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
             return acc;
           case 'updated':
             acc = acc + `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
