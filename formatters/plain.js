@@ -27,7 +27,7 @@ export default (obj) => {
         case 'changed':
           return `${iter(keyValue.value, currPath + key)}`;
           default:
-            return
+            return;
         }
       });
       return line.join('');

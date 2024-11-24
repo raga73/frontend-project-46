@@ -13,22 +13,16 @@ export default (obj,replacer = ' ', spacesCount = 4) => {
       .reduce((acc, [key, keyValue]) => {
         switch (keyValue.mark) {
           case 'removed':
-            acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
-            return acc;
+            return acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
           case 'added':
-            acc += `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
-            return acc;
+            return acc += `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
           case 'unchanged':
           case 'changed': 
-            acc += `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
-            return acc;
+            return acc += `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
           case 'updated':
-            acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
-            return acc;
-
+            return acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
           }
-          acc += `${currentInd}${key}: ${iter(keyValue, depth + 1)}\n`;
-          return acc
+          return acc += `${currentInd}${key}: ${iter(keyValue, depth + 1)}\n`;
     }, '');
     return `{\n${str}${bracketInd}}`;
     }

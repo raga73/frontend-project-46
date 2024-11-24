@@ -24,6 +24,8 @@ export default (obj) => {
                 old: keyValue.value.old,
                 new: keyValue.value.new
               }];
+              node.mark = keyValue.mark;
+              return node;
             default:
               node.mark = keyValue.mark;
               return node;
