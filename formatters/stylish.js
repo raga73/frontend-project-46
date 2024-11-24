@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const stylishFormatter = (obj,replacer = ' ', spacesCount = 4) => {
+export default (obj,replacer = ' ', spacesCount = 4) => {
   const iter = (currentValue, depth) => {
     const currentInd = replacer.repeat(depth * spacesCount);
     const bracketInd = replacer.repeat((depth * spacesCount) - spacesCount);
@@ -10,25 +10,24 @@ const stylishFormatter = (obj,replacer = ' ', spacesCount = 4) => {
       }
     const str = Object
       .entries(currentValue)
-      .reduce((acc, [key, value]) => {
-        switch (value.mark) {
+      .reduce((acc, [key, keyValue]) => {
+        switch (keyValue.mark) {
           case 'removed':
-            acc += `${bracketIndShifted}- ${key}: ${iter(value.children, depth + 1)}\n`;
+            acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value, depth + 1)}\n`;
             return acc;
           case 'added':
-            acc += `${bracketIndShifted}+ ${key}: ${iter(value.children, depth + 1)}\n`;
+            acc += `${bracketIndShifted}+ ${key}: ${iter(keyValue.value, depth + 1)}\n`;
             return acc;
-          case 'unchanged': 
-            acc += `${currentInd}${key}: ${iter(value.children, depth + 1)}\n`;
+          case 'unchanged':
+          case 'changed': 
+            acc += `${currentInd}${key}: ${iter(keyValue.value, depth + 1)}\n`;
             return acc;
           case 'updated':
-            acc += `${bracketIndShifted}- ${key}: ${iter(value.children.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(value.children.new, depth + 1)}\n`;
+            acc += `${bracketIndShifted}- ${key}: ${iter(keyValue.value.old, depth + 1)}\n${bracketIndShifted}+ ${key}: ${iter(keyValue.value.new, depth + 1)}\n`;
             return acc;
-          case 'diff':  
-            acc += `${currentInd}${key}: ${iter(value.children, depth + 1)}\n`;
-          return acc;
+
           }
-          acc += `${currentInd}${key}: ${iter(value, depth + 1)}\n`;
+          acc += `${currentInd}${key}: ${iter(keyValue, depth + 1)}\n`;
           return acc
     }, '');
     return `{\n${str}${bracketInd}}`;
@@ -36,5 +35,4 @@ const stylishFormatter = (obj,replacer = ' ', spacesCount = 4) => {
   return iter(obj, 1);
 };
 
-export default stylishFormatter;
 

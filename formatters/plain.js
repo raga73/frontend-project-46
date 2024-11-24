@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const plainFormatter = (obj) => {
+export default (obj) => {
 
     const format = (value) => {
         if (_.isObject(value) && value !== null) {
-            return '[complex object]';
+            return '[complex value]';
         }
         if (typeof value === 'string') {
             return `'${value}'`;
@@ -13,20 +13,21 @@ const plainFormatter = (obj) => {
     };
   
     const iter = (currentValue, path = '') => {
-      path = path ?? '';
-      const currPath = path === '' ? '' : `${path}.`
+      const currPath = path === '' ? '' : `${path}.`;
       const line = Object
       .entries(currentValue)
-      .map(([key, value]) => {  
-        switch (value.mark) {
+      .map(([key, keyValue]) => {  
+        switch (keyValue.mark) {
         case 'removed':
           return `Property '${currPath}${key}' was removed\n`;
         case 'added':
-          return `Property '${currPath}${key}' was added with value: ${format(value.children)}\n`;
+          return `Property '${currPath}${key}' was added with value: ${format(keyValue.value)}\n`;
         case 'updated':
-          return `Property '${currPath}${key}' was updated. From ${format(value.children.old)} to ${format(value.children.new)}\n`;
-        case 'diff':
-          return `${iter(value.children, currPath + key)}`;
+          return `Property '${currPath}${key}' was updated. From ${format(keyValue.value.old)} to ${format(keyValue.value.new)}\n`;
+        case 'changed':
+          return `${iter(keyValue.value, currPath + key)}`;
+          default:
+            return
         }
       });
       return line.join('');
@@ -35,4 +36,3 @@ const plainFormatter = (obj) => {
     return iter(obj);
 };
 
-export default plainFormatter;

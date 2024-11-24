@@ -1,28 +1,35 @@
 import _ from 'lodash';
+import fileParse from '../utils/parser.js';
+import formatter from '../formatters/index.js';
 
-const genDiff = (file1, file2) => {
-  const commonKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
+
+export default (filePath1, filePath2, formatType) => {
+  const file1 = (fileParse(filePath1));
+  const file2 = (fileParse(filePath2));
+
+  const iter = (node1, node2) => {
+  const commonKeys = _.sortBy(_.union(Object.keys(node1), Object.keys(node2)));
   const filesDifferences = commonKeys.reduce((acc, key) => {
-    if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
-      if (_.isObject(file1[key]) && _.isObject(file2[key])) {
+    if (Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
+      if (_.isObject(node1[key]) && _.isObject(node2[key])) {
         acc[key] = {
-          children: genDiff(file1[key], file2[key]),
-          mark: 'diff',
+          value: iter(node1[key], node2[key]),
+          mark: 'changed',
         };
         return acc;
       } else {
-        if (file1[key] === file2[key]) {
+        if (node1[key] === node2[key]) {
           acc[key] = {
-            children: file1[key],
+            value: node1[key],
             mark: 'unchanged',
           };
           return acc;
         }
-        if (file1[key] !== file2[key]) {
+        if (node1[key] !== node2[key]) {
               acc[key] = {
-                children: {
-                old: file1[key],
-                new: file2[key],
+                value: {
+                old: node1[key],
+                new: node2[key],
                 },
                 mark: 'updated',
               }
@@ -30,22 +37,23 @@ const genDiff = (file1, file2) => {
             }  
           }
         }
-      if (Object.hasOwn(file1, key) && !Object.hasOwn(file2, key)) {
+      if (Object.hasOwn(node1, key) && !Object.hasOwn(node2, key)) {
         acc[key] = {
-          children: file1[key],
+          value: node1[key],
           mark: 'removed',
         };
         return acc;
       }
-      if (!Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
+      if (!Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
         acc[key] = {
-          children: file2[key],
+          value: node2[key],
           mark: 'added',
         };
         return acc;
       }
     }, {});
   return filesDifferences;
+  };
+  return formatter(iter(file1, file2), formatType);
 };
 
-export default genDiff;

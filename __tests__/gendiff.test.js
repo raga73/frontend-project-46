@@ -1,11 +1,13 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { expect, test } from '@jest/globals';
+import { expect } from '@jest/globals';
 import { readFileSync } from 'fs';
 import path from 'node:path';
 import genDiff from '../src/gendiff.js';
 import fileParse from '../utils/parser.js';
 import stylishFormatter from '../formatters/stylish.js';
+import plainFormatter from '../formatters/plain.js';
+import jsonFormatter from '../formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,22 +16,26 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
 test('json stylish format gendiff check', () => {
-  const filePath1 = getFixturePath('file1.json');
-  const filePath2 = getFixturePath('file2.json');
-  const file1 = fileParse(filePath1);
-  const file2 = fileParse(filePath2);
-  const received = stylishFormatter(genDiff(file1, file2));
-  const expected = readFile('file1_file2_differences.txt');
+  const file1 = 'file1.json';
+  const file2 = 'file2.json';
+  const received = stylishFormatter(genDiff(file1, file2, 'stylish'));
+  const expected = readFile('expectedStylishResult.txt');
   expect(received).toEqual(expected);
   
 })
 
-test('yaml stylish format gendiff check', () => {
-    const filePath3 = getFixturePath('file3.yml');
-    const filePath4 = getFixturePath('file4.yaml');
-    const file3 = fileParse(filePath3);
-    const file4 = fileParse(filePath4);
-    const received = stylishFormatter(genDiff(file3, file4));
-    const expected = readFile('file3_file4_differences.txt');
-    expect(received).toEqual(expected);
+test('json plain format gendiff check', () => {
+  const file1 = 'file1.json';
+  const file2 = 'file2.json';
+  const received = genDiff(file1, file2, 'plain');
+  const expected = readFile('expectedPlainResult.txt');
+  expect(received).toEqual(expected);
+});
+
+test('json JSON format gendiff check', () => {
+  const file1 = 'file1.json';
+  const file2 = 'file2.json';
+  const received = genDiff(file1, file2, 'json');
+  const expected = readFile('expectedJsonResult.txt');
+  expect(received).toEqual(expected);
 });
