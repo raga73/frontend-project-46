@@ -34,3 +34,27 @@ test('json JSON format gendiff check', () => {
   const expected = readFile('expectedJsonResult.txt');
   expect(received).toEqual(expected);
 });
+
+test('yaml_yml stylish format gendiff check', () => {
+  const file1 = 'file1.yaml';
+  const file2 = 'file2.yml';
+  const received = genDiff(file1, file2, 'stylish');
+  const expected = readFile('expectedStylishResult.txt');
+  expect(received).toEqual(expected);
+});
+
+test('yaml_yml plain format gendiff check', () => {
+  const file1 = 'file1.yaml';
+  const file2 = 'file2.yml';
+  const received = genDiff(file1, file2, 'plain');
+  const expected = readFile('expectedPlainResult.txt');
+  expect(received).toEqual(expected);
+});
+
+test('yaml_yml JSON format gendiff check', () => {
+  const file1 = 'file1.yaml';
+  const file2 = 'file2.yml';
+  const received = genDiff(file1, file2, 'json');
+  const expected = readFile('expectedJsonResult.txt');
+  expect(received).toEqual(expected);
+});
