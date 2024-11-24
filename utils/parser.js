@@ -5,18 +5,18 @@ import { dirname } from 'path';
 import yaml from 'js-yaml';
 
 export default (filePath) => {
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
 
-const getPath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+  const getPath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const fileExtension = path.extname(filePath);
-  
+  const fileExtension = path.extname(filePath);
+
   if (fileExtension === '.json') {
     return JSON.parse(fs.readFileSync(getPath(filePath)));
-    }
+  }
   if (fileExtension === '.yml' || fileExtension === '.yaml') {
     return yaml.load(fs.readFileSync(getPath(filePath)));
-    }
-    throw new Error(`Wrong file extension ${fileExtension}!`);
+  }
+  throw new Error(`Wrong file extension ${fileExtension}!`);
 };

@@ -17,8 +17,7 @@ test('json stylish format gendiff check', () => {
   const received = genDiff(file1, file2, 'stylish');
   const expected = readFile('expectedStylishResult.txt');
   expect(received).toEqual(expected);
-  
-})
+});
 
 test('json plain format gendiff check', () => {
   const file1 = 'file1.json';

@@ -15,14 +15,14 @@ export default (obj) => {
             case 'changed':
             case 'added':
             case 'removed':
-            case 'unchanged':    
+            case 'unchanged':
               node.value = iter(keyValue.value);
               node.mark = keyValue.mark;
               return node;
             case 'updated':
               node.value = [{
                 old: keyValue.value.old,
-                new: keyValue.value.new
+                new: keyValue.value.new,
               }];
               node.mark = keyValue.mark;
               return node;
@@ -31,12 +31,10 @@ export default (obj) => {
               return node;
           }
         }
-      node.value = iter(keyValue);
-      return node;
+        node.value = iter(keyValue);
+        return node;
       });
     return newNode;
-  }
+  };
   return iter(obj);
 };
-
-
