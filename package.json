@@ -5,12 +5,12 @@
   "type": "module",
   "main": "index.js",
   "bin": {
-    "gendiff": "../bin/index.js"
+    "gendiff": "/bin/index.js"
   },
   "scripts": {
     "test": "jest"
   },
-  "author": "",
+  "author": "Anton Savin",
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
