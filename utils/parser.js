@@ -2,13 +2,12 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { cwd } from 'process';
 import yaml from 'js-yaml';
 
 export default (filePath) => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
 
-  const getPath = (filename) => path.join(__filename,'..', filename);
+  const getPath = (filename) => path.resolve(cwd(), filename);
 
   const fileExtension = path.extname(getPath(filePath));
 
