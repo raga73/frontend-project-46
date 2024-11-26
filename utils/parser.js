@@ -10,7 +10,7 @@ export default (filePath) => {
 
   const getPath = (filename) => path.join(filename);
 
-  const fileExtension = path.extname(filePath);
+  const fileExtension = path.extname(getPath(filePath));
 
   if (fileExtension === '.json') {
     return JSON.parse(fs.readFileSync(getPath(filePath)));
