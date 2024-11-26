@@ -9,7 +9,7 @@ export default (filePath) => {
 
   const getPath = (filename) => path.resolve(cwd(), filename);
 
-  const fileExtension = path.extname(getPath(filePath));
+  const fileExtension = path.extname(filePath);
 
   if (fileExtension === 'json') {
     return JSON.parse(fs.readFileSync(getPath(filePath)));
