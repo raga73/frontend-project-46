@@ -31,5 +31,5 @@ export default (obj) => {
       });
     return line.join('');
   };
-  return iter(obj);
+  return iter(obj).trimEnd();
 };
