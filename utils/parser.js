@@ -1,7 +1,5 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { cwd } from 'process'
 import yaml from 'js-yaml';
 
