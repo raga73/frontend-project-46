@@ -8,7 +8,7 @@ export default (filePath) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
 
-  const getPath = (filename) => path.resolve(__filename,'..', filename);
+  const getPath = (filename) => path.join(__filename,'..', filename);
 
   const fileExtension = path.extname(getPath(filePath));
 
