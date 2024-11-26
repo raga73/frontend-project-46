@@ -14,7 +14,7 @@ export default (filePath) => {
   if (fileExtension === 'json') {
     return JSON.parse(fs.readFileSync(getPath(filePath)));
   }
-  if (fileExtension === 'yml' || fileExtension === 'yaml') {
+  if (fileExtension === '.yml' || fileExtension === 'yaml') {
     return yaml.load(fs.readFileSync(getPath(filePath)));
   }
   throw new Error(`Wrong file extension ${fileExtension}!`);
