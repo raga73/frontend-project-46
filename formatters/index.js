@@ -11,7 +11,7 @@ const formatter = (node, formatType) => {
     case 'json':
       return JSON.stringify(jsonFormatter(node));
     default:
-      throw new Error(`'Unsupported format type ${formatType}!'`);
+      return stylishFormatter(node);
   }
 };
 

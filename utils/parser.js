@@ -6,7 +6,6 @@ import yaml from 'js-yaml';
 export default (filePath) => {
 
   const getPath = (filename) => path.resolve(cwd(), filename);
-
   const fileExtension = path.extname(filePath);
 
   if (fileExtension === '.json') {
