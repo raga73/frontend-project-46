@@ -6,7 +6,7 @@
 
 ## Install
 
-git clone https://github.com/MariaShalunova/frontend-project-46.git
+git clone https://github.com/raga73/frontend-project-46.git
 cd frontend-project-46
 make install
 
