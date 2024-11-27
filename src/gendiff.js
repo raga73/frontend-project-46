@@ -8,49 +8,47 @@ export default (filePath1, filePath2, formatType) => {
 
   const iter = (node1, node2) => {
     const commonKeys = _.sortBy(_.union(Object.keys(node1), Object.keys(node2)));
-    const filesDifferences = commonKeys.reduce((acc, key) => {
+    const filesDifferences = commonKeys.map((key) => {
       if (Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
         if (_.isObject(node1[key]) && _.isObject(node2[key])) {
-          acc[key] = {
+          return {
+            name: key,
             value: iter(node1[key], node2[key]),
             mark: 'changed',
           };
-          return acc;
         }
         if (node1[key] === node2[key]) {
-          acc[key] = {
+          return {
+            name: key,
             value: node1[key],
             mark: 'unchanged',
           };
-          return acc;
         }
         if (node1[key] !== node2[key]) {
-          acc[key] = {
-            value: {
-              old: node1[key],
-              new: node2[key],
-            },
+          return {
+            name: key,
+            oldValue: node1[key],
+            newValue: node2[key],
             mark: 'updated',
           };
-          return acc;
         }
       }
       if (Object.hasOwn(node1, key) && !Object.hasOwn(node2, key)) {
-        acc[key] = {
+        return {
+          name: key,
           value: node1[key],
           mark: 'removed',
         };
-        return acc;
       }
       if (!Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
-        acc[key] = {
+        return {
+          name: key,
           value: node2[key],
           mark: 'added',
         };
-        return acc;
       }
-      return acc;
-    }, {});
+      return '';
+    });
     return filesDifferences;
   };
   return formatter(iter(file1, file2), formatType);

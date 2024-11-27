@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default (obj) => {
+export default (node) => {
   const format = (value) => {
     if (_.isObject(value) && value !== null) {
       return '[complex value]';
@@ -11,25 +11,26 @@ export default (obj) => {
     return value;
   };
 
-  const iter = (currentValue, path = '') => {
+  const iter = (currentNode, path = '') => {
     const currPath = path === '' ? '' : `${path}.`;
-    const line = Object
-      .entries(currentValue)
-      .map(([key, keyValue]) => {
-        switch (keyValue.mark) {
+    const line = currentNode
+      .map(({
+        name, value, oldValue, newValue, mark,
+      }) => {
+        switch (mark) {
           case 'removed':
-            return `Property '${currPath}${key}' was removed\n`;
+            return `Property '${currPath}${name}' was removed\n`;
           case 'added':
-            return `Property '${currPath}${key}' was added with value: ${format(keyValue.value)}\n`;
+            return `Property '${currPath}${name}' was added with value: ${format(value)}\n`;
           case 'updated':
-            return `Property '${currPath}${key}' was updated. From ${format(keyValue.value.old)} to ${format(keyValue.value.new)}\n`;
+            return `Property '${currPath}${name}' was updated. From ${format(oldValue)} to ${format(newValue)}\n`;
           case 'changed':
-            return `${iter(keyValue.value, currPath + key)}`;
+            return `${iter(value, currPath + name)}`;
           default:
         }
         return '';
       });
     return line.join('');
   };
-  return iter(obj).trimEnd();
+  return iter(node);
 };

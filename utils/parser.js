@@ -1,13 +1,11 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import { cwd } from 'process'
+import { cwd } from 'process';
 import yaml from 'js-yaml';
 
 export default (filePath) => {
-
   const getPath = (filename) => path.resolve(cwd(), filename);
   const fileExtension = path.extname(filePath);
-
   if (fileExtension === '.json') {
     return JSON.parse(fs.readFileSync(getPath(filePath)));
   }
