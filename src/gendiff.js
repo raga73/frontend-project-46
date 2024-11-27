@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import fileParse from '../utils/parser.js';
-import formatter from '../formatters/index.js';
+import fileParse from '../src/utils/parser.js';
+import formatter from '../src/formatters/index.js';
 
 export default (filePath1, filePath2, formatType) => {
   const file1 = (fileParse(filePath1));
