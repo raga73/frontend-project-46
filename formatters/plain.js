@@ -32,5 +32,5 @@ export default (node) => {
       });
     return line.join('');
   };
-  return iter(node);
+  return iter(node).trimEnd();
 };
