@@ -8,7 +8,7 @@ export default (file, fileExtension) => {
     case '.yml':
     case '.yaml':
       return yaml.load(fs.readFileSync(file));
-  default:
+    default:
       throw new Error(`Wrong file extension ${fileExtension}!`);
   }
 };
