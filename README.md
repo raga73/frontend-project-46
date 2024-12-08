@@ -1,8 +1,13 @@
 # Difference Calculator
 This program shows the difference between two files in formats:
-  - JSON
+  - Json
   - Plain
   - Stylish
+
+Supported file's format:
+  - JSON
+  - YAML
+  - YML
 
 ## Install
 ```sh
