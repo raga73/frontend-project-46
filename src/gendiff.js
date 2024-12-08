@@ -6,6 +6,7 @@ import formatter from './formatters/index.js';
 
 export default (filePath1, filePath2, formatType) => {
   const getPath = (filename) => path.resolve(cwd(), filename);
+
   const file1 = fileParse(getPath(filePath1), path.extname(filePath1));
   const file2 = fileParse(getPath(filePath2), path.extname(filePath2));
 
@@ -14,41 +15,22 @@ export default (filePath1, filePath2, formatType) => {
     const filesDifferences = commonKeys.map((key) => {
       if (Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
         if (_.isObject(node1[key]) && _.isObject(node2[key])) {
-          return {
-            name: key,
-            value: iter(node1[key], node2[key]),
-            mark: 'changed',
-          };
+          return { name: key, value: iter(node1[key], node2[key]), mark: 'changed' };
         }
         if (node1[key] === node2[key]) {
-          return {
-            name: key,
-            value: node1[key],
-            mark: 'unchanged',
-          };
+          return { name: key, value: node1[key], mark: 'unchanged' };
         }
         if (node1[key] !== node2[key]) {
           return {
-            name: key,
-            oldValue: node1[key],
-            newValue: node2[key],
-            mark: 'updated',
+            name: key, oldValue: node1[key], newValue: node2[key], mark: 'updated',
           };
         }
       }
       if (Object.hasOwn(node1, key) && !Object.hasOwn(node2, key)) {
-        return {
-          name: key,
-          value: node1[key],
-          mark: 'removed',
-        };
+        return { name: key, value: node1[key], mark: 'removed' };
       }
       if (!Object.hasOwn(node1, key) && Object.hasOwn(node2, key)) {
-        return {
-          name: key,
-          value: node2[key],
-          mark: 'added',
-        };
+        return { name: key, value: node2[key], mark: 'added' };
       }
       throw new Error('Something wrong with file content!');
     });

@@ -2,16 +2,9 @@ import _ from 'lodash';
 
 export default (obj, replacer = ' ', spacesCount = 4) => {
   const iter = (node, depth) => {
-    const currentInd = replacer.repeat(depth * spacesCount);
-    const bracketInd = replacer.repeat((depth * spacesCount) - spacesCount);
-    const bracketIndShifted = replacer.repeat(depth * spacesCount - 2);
-
-    const stringify = (tree) => {
-      const line = Object.entries(tree)
-        .map(([key, value]) => `${currentInd}${key}: ${iter(value, depth + 1)}\n`);
-      return `{\n${line.join('')}${bracketInd}}`;
-    };
-
+    const currentIndent = replacer.repeat(depth * spacesCount);
+    const bracketIndent = replacer.repeat((depth * spacesCount) - spacesCount);
+    const bracketIndentShifted = replacer.repeat(depth * spacesCount - 2);
     if (Array.isArray(node)) {
       const result = node
         .map(({
@@ -19,22 +12,24 @@ export default (obj, replacer = ' ', spacesCount = 4) => {
         }) => {
           switch (mark) {
             case 'removed':
-              return `${bracketIndShifted}- ${name}: ${iter(value, depth + 1)}\n`;
+              return `${bracketIndentShifted}- ${name}: ${iter(value, depth + 1)}\n`;
             case 'added':
-              return `${bracketIndShifted}+ ${name}: ${iter(value, depth + 1)}\n`;
+              return `${bracketIndentShifted}+ ${name}: ${iter(value, depth + 1)}\n`;
             case 'unchanged':
             case 'changed':
-              return `${currentInd}${name}: ${iter(value, depth + 1)}\n`;
+              return `${currentIndent}${name}: ${iter(value, depth + 1)}\n`;
             case 'updated':
-              return `${bracketIndShifted}- ${name}: ${iter(oldValue, depth + 1)}\n${bracketIndShifted}+ ${name}: ${iter(newValue, depth + 1)}\n`;
+              return `${bracketIndentShifted}- ${name}: ${iter(oldValue, depth + 1)}\n${bracketIndentShifted}+ ${name}: ${iter(newValue, depth + 1)}\n`;
             default:
               throw new Error('Wrong mark definition!');
           }
         });
-      return `{\n${result.join('')}${bracketInd}}`;
+      return `{\n${result.join('')}${bracketIndent}}`;
     }
     if (_.isObject(node)) {
-      return stringify(node);
+      const line = Object.entries(node)
+        .map(([key, value]) => `${currentIndent}${key}: ${iter(value, depth + 1)}\n`);
+      return `{\n${line.join('')}${bracketIndent}}`;
     }
     return node;
   };
