@@ -21,7 +21,7 @@ make help
 make tests
 ```
 ## Plain format Demo
-[![asciicast](https://asciinema.org/a/693915.svg)](https://asciinema.org/a/693915)
+<script src="https://asciinema.org/a/693915.js" id="asciicast-693915" async="true"></script>
 
 
 
